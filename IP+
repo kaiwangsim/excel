@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Dec 28 17:20:22 2020
+
+@author: Kai
+"""
+
+import re
+import pandas as pd
+
+data = pd.read_excel(r'C:\Users\belie\Desktop\123123.xlsx')
+
+
+
+
+
+for i in range(0,31):
+    data['MPLS WAN IP '][i] = data['MPLS WAN IP '][i][:-3]
+
+
+for i in range(0,31):
+    x = data['MPLS WAN IP '][i]
+    x1 = re.compile(r'(\d+)(?!.*\d)').findall(x)
+    x2 = re.compile(r'\d+\.\d+\.\d+\.').findall(x)
+    n1 = int(x1[0])+4
+    data['MPLS WAN IP '][i] = x2[0] + str(n1) + '/30'
+    
+    
+
+data.to_csv(r'C:\Users\belie\Desktop\asdf.csv', encoding='utf-8-sig')
